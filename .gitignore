@@ -16,8 +16,21 @@ node_modules
 # OS Files
 .DS_Store
 Thumbs.db
+*.swp
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
+
+# TypeScript
+*.tsbuildinfo
+
+# Linting
+.eslintcache
+
+# Workspace
+*.code-workspace
+.history/
+.ionide/

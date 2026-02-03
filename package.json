@@ -2,8 +2,9 @@
   "name": "photon",
   "displayName": "Photon",
   "publisher": "sebavidal",
-  "description": "",
+  "description": "A minimalist, dark-mode REST client for VS Code.",
   "version": "0.0.2",
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -21,7 +22,24 @@
         "title": "Open Photon",
         "category": "Photon"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "photon-explorer",
+          "title": "Photon",
+          "icon": "resources/photon-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "photon-explorer": [
+        {
+          "id": "photon-launcher",
+          "name": "Launcher"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
