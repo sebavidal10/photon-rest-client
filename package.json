@@ -1,6 +1,6 @@
 {
-  "name": "photon-rest",
-  "displayName": "Photon",
+  "name": "photon-rest-client",
+  "displayName": "Photon REST Client",
   "publisher": "sebavidal",
   "description": "A minimalist, dark-mode REST client for VS Code.",
   "version": "0.0.2",
