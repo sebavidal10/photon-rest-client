@@ -6,42 +6,45 @@
 
 A minimalist REST client for VS Code that stays out of your way. Built for developers who want a fast, dark-mode-first environment to test APIs.
 
-There are plenty of REST clients for VS Code. Photon is built for speed and aesthetics:
-
-- **Fast**: No bloat, no complex config. Open and send.
-- **OLED UI**: Pure black theme with high-contrast syntax highlighting.
-- **Interoperable**: Save your requests locally or move them to/from Postman.
-
 ## Features
 
-- **Saved Requests**: Persistent local storage for your 200 OKs.
-- **JSON Tree**: Collapsible, syntax-highlighted response viewer.
-- **Import/Export**: Supports Postman Collection v2.1 format.
+- **Saved Requests**: Persistent local storage for your requests.
+- **JSON Tree View**: Collapsible, syntax-highlighted response viewer.
+- **Interoperability**: Export to / Import from Postman Collection (v2.1) format.
 - **History**: Automatic tracking of your latest requests.
 - **Auth**: Bearer and Basic authentication support.
-- **Response Meta**: Check status, time, and line count at a glance.
+- **Response Meta**: Status code, response time, and line count at a glance.
 
 ## Installation
 
-- **Marketplace**: Search for `Photon` in VS Code Extensions.
-- **Manual**: Download the `.vsix` file from the [latest release](https://github.com/sebavidal10/photon-rest-client/releases), then in VS Code run: `Extensions: Install from VSIX...`
+### From Marketplace (Coming Soon)
+
+Search for `Photon` in the VS Code Extensions view.
+
+### Manual Installation
+
+1. Go to the [Releases](https://github.com/sebavidal10/photon-rest-client/releases) page.
+2. Download the latest `.vsix` file (e.g., `photon-0.0.2.vsix`).
+3. In VS Code, open the **Extensions** view (`Cmd+Shift+X` or `Ctrl+Shift+X`).
+4. Click the `...` (Views and More Actions) in the top right corner.
+5. Select **Install from VSIX...** and pick the file you just downloaded.
 
 ## Usage
 
 1. Open the Command Palette (`Cmd/Ctrl + Shift + P`).
-2. Type `Open Photon`.
-3. Set your method/URL and go.
+2. Type **Open Photon**.
+3. You can also find Photon in your **Activity Bar** (sidebar icon).
 
 ## Development
 
-If you want to run it locally:
+To run Photon locally for development:
 
 ```bash
 npm install
 npm run watch
 ```
 
-Then press `F5` to launch the extension.
+Press `F5` to launch a new VS Code window with the extension loaded.
 
 ## License
 
