@@ -21,6 +21,11 @@ There are plenty of REST clients for VS Code. Photon is built for speed and aest
 - **Auth**: Bearer and Basic authentication support.
 - **Response Meta**: Check status, time, and line count at a glance.
 
+## Installation
+
+- **Marketplace**: Search for `Photon` in VS Code Extensions.
+- **Manual**: Download the `.vsix` file from the [latest release](https://github.com/sebavidal10/photon-rest-client/releases), then in VS Code run: `Extensions: Install from VSIX...`
+
 ## Usage
 
 1. Open the Command Palette (`Cmd/Ctrl + Shift + P`).

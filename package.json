@@ -5,14 +5,20 @@
   "description": "A minimalist, dark-mode REST client for VS Code.",
   "version": "0.0.2",
   "icon": "icon.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebavidal10/photon-rest-client.git"
+  },
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.108.0"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "*"
+    "onCommand:photon.open",
+    "onView:photon-launcher"
   ],
   "main": "./dist/extension.js",
   "contributes": {
