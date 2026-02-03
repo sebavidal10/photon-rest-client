@@ -1,5 +1,5 @@
 {
-  "name": "photon",
+  "name": "photon-rest",
   "displayName": "Photon",
   "publisher": "sebavidal",
   "description": "A minimalist, dark-mode REST client for VS Code.",
