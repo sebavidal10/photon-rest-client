@@ -26,9 +26,19 @@ export function activate(context: vscode.ExtensionContext) {
 
   // Sidebar Provider
   const sidebarProvider = new PhotonSidebarProvider(context);
-  vscode.window.registerTreeDataProvider('photon-launcher', sidebarProvider);
+  const treeView = vscode.window.createTreeView('photon-launcher', {
+    treeDataProvider: sidebarProvider,
+  });
+
+  // Auto-open main panel when sidebar is focused
+  treeView.onDidChangeVisibility((e) => {
+    if (e.visible) {
+      vscode.commands.executeCommand('photon.open');
+    }
+  });
 
   context.subscriptions.push(
+    treeView,
     vscode.commands.registerCommand('photon.refreshSidebar', () => {
       sidebarProvider.refresh();
     }),
