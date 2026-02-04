@@ -3,7 +3,7 @@
   "displayName": "Photon REST Client",
   "publisher": "sebavidal10",
   "description": "A minimalist, dark-mode REST client for VS Code.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "icon": "icon.png",
   "license": "MIT",
   "repository": {

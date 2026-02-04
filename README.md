@@ -8,7 +8,9 @@ A minimalist REST client for VS Code that stays out of your way. Built for devel
 
 ## Features
 
-- **Saved Requests**: Persistent local storage for your requests.
+- **Sidebar Launcher**: Quick-access icon to open Photon without needing the command palette.
+- **Saved Requests Tree**: View and launch your favorite requests directly from the VS Code sidebar.
+- **OLED Dark UI**: Pure black theme with high-contrast syntax highlighting.
 - **JSON Tree View**: Collapsible, syntax-highlighted response viewer.
 - **Interoperability**: Export to / Import from Postman Collection (v2.1) format.
 - **History**: Automatic tracking of your latest requests.
@@ -24,7 +26,7 @@ Search for `Photon` in the VS Code Extensions view.
 ### Manual Installation
 
 1. Go to the [Releases](https://github.com/sebavidal10/photon-rest-client/releases) page.
-2. Download the latest `.vsix` file (e.g., `photon-rest-client-0.0.3.vsix`).
+2. Download the latest `.vsix` file (e.g., `photon-rest-client-0.0.4.vsix`).
 3. In VS Code, open the **Extensions** view (`Cmd+Shift+X` or `Ctrl+Shift+X`).
 4. Click the `...` (Views and More Actions) in the top right corner.
 5. Select **Install from VSIX...** and pick the file you just downloaded.
