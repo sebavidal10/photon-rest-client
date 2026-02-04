@@ -30,10 +30,13 @@ export function activate(context: vscode.ExtensionContext) {
     treeDataProvider: sidebarProvider,
   });
 
-  // Auto-open main panel when sidebar is focused
+  // Auto-open main panel when sidebar is focused and then close sidebar
   treeView.onDidChangeVisibility((e) => {
     if (e.visible) {
       vscode.commands.executeCommand('photon.open');
+      setTimeout(() => {
+        vscode.commands.executeCommand('workbench.action.closeSidebar');
+      }, 100);
     }
   });
 
@@ -69,19 +72,6 @@ class PhotonSidebarProvider implements vscode.TreeDataProvider<PhotonTreeItem> {
     }
 
     const items: PhotonTreeItem[] = [];
-
-    // Launch Item
-    items.push(
-      new PhotonTreeItem(
-        'Launch Photon',
-        vscode.TreeItemCollapsibleState.None,
-        {
-          command: 'photon.open',
-          title: 'Launch Photon',
-        },
-        new vscode.ThemeIcon('rocket'),
-      ),
-    );
 
     // Saved Requests
     const saved: SavedRequest[] =
