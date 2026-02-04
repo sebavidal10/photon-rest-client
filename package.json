@@ -45,7 +45,13 @@
           "name": "Launcher"
         }
       ]
-    }
+    },
+    "viewsWelcome": [
+      {
+        "view": "photon-launcher",
+        "contents": "Minimalist REST Client for VS Code.\n[Launch Photon](command:photon.open)"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

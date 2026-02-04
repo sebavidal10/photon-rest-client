@@ -16,13 +16,114 @@ interface SavedRequest {
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand('photon.open', () => {
-      openWebview(context);
+    vscode.commands.registerCommand(
+      'photon.open',
+      (savedReq?: SavedRequest) => {
+        const panel = openWebview(context, savedReq);
+      },
+    ),
+  );
+
+  // Sidebar Provider
+  const sidebarProvider = new PhotonSidebarProvider(context);
+  vscode.window.registerTreeDataProvider('photon-launcher', sidebarProvider);
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('photon.refreshSidebar', () => {
+      sidebarProvider.refresh();
     }),
   );
 }
 
-function openWebview(context: vscode.ExtensionContext): vscode.WebviewPanel {
+class PhotonSidebarProvider implements vscode.TreeDataProvider<PhotonTreeItem> {
+  private _onDidChangeTreeData: vscode.EventEmitter<
+    PhotonTreeItem | undefined | void
+  > = new vscode.EventEmitter<PhotonTreeItem | undefined | void>();
+  readonly onDidChangeTreeData: vscode.Event<
+    PhotonTreeItem | undefined | void
+  > = this._onDidChangeTreeData.event;
+
+  constructor(private context: vscode.ExtensionContext) {}
+
+  refresh(): void {
+    this._onDidChangeTreeData.fire();
+  }
+
+  getTreeItem(element: PhotonTreeItem): vscode.TreeItem {
+    return element;
+  }
+
+  getChildren(element?: PhotonTreeItem): Thenable<PhotonTreeItem[]> {
+    if (element) {
+      return Promise.resolve([]);
+    }
+
+    const items: PhotonTreeItem[] = [];
+
+    // Launch Item
+    items.push(
+      new PhotonTreeItem(
+        'Launch Photon',
+        vscode.TreeItemCollapsibleState.None,
+        {
+          command: 'photon.open',
+          title: 'Launch Photon',
+        },
+        new vscode.ThemeIcon('rocket'),
+      ),
+    );
+
+    // Saved Requests
+    const saved: SavedRequest[] =
+      this.context.globalState.get('savedRequests') || [];
+    if (saved.length > 0) {
+      items.push(
+        new PhotonTreeItem(
+          'Saved Requests',
+          vscode.TreeItemCollapsibleState.Expanded,
+          undefined,
+          new vscode.ThemeIcon('save'),
+        ),
+      );
+      saved.forEach((req) => {
+        items.push(
+          new PhotonTreeItem(
+            req.name,
+            vscode.TreeItemCollapsibleState.None,
+            {
+              command: 'photon.open',
+              title: 'Open Request',
+              arguments: [req],
+            },
+            new vscode.ThemeIcon('link'),
+            req.method,
+          ),
+        );
+      });
+    }
+
+    return Promise.resolve(items);
+  }
+}
+
+class PhotonTreeItem extends vscode.TreeItem {
+  constructor(
+    public readonly label: string,
+    public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+    public readonly command?: vscode.Command,
+    public readonly iconPath?: vscode.ThemeIcon,
+    public readonly description?: string,
+  ) {
+    super(label, collapsibleState);
+    this.tooltip = `${this.label}`;
+    this.description = description;
+  }
+}
+
+function openWebview(
+  context: vscode.ExtensionContext,
+  initialRequest?: SavedRequest,
+): vscode.WebviewPanel {
   if (activePanel) {
     activePanel.reveal(vscode.ViewColumn.Beside);
     return activePanel;
@@ -48,6 +149,16 @@ function openWebview(context: vscode.ExtensionContext): vscode.WebviewPanel {
   );
 
   panel.webview.html = getWebviewContent(context);
+
+  if (initialRequest) {
+    // Wait a bit for webview to be ready
+    setTimeout(() => {
+      panel.webview.postMessage({
+        command: 'loadRequest',
+        request: initialRequest,
+      });
+    }, 1000);
+  }
 
   panel.webview.onDidReceiveMessage(async (message) => {
     if (message.command === 'sendRequest') {
@@ -180,6 +291,7 @@ function openWebview(context: vscode.ExtensionContext): vscode.WebviewPanel {
       saved.push(newSaved);
       await context.globalState.update('savedRequests', saved);
       panel.webview.postMessage({ command: 'savedRequestsData', saved: saved });
+      vscode.commands.executeCommand('photon.refreshSidebar');
       vscode.window.showInformationMessage(`Request "${message.name}" saved!`);
     } else if (message.command === 'getSavedRequests') {
       const saved = context.globalState.get('savedRequests') || [];
@@ -190,6 +302,7 @@ function openWebview(context: vscode.ExtensionContext): vscode.WebviewPanel {
       saved = saved.filter((r) => r.id !== message.id);
       await context.globalState.update('savedRequests', saved);
       panel.webview.postMessage({ command: 'savedRequestsData', saved: saved });
+      vscode.commands.executeCommand('photon.refreshSidebar');
     } else if (message.command === 'exportSaved') {
       const saved: SavedRequest[] =
         context.globalState.get('savedRequests') || [];
@@ -278,6 +391,7 @@ function openWebview(context: vscode.ExtensionContext): vscode.WebviewPanel {
             command: 'savedRequestsData',
             saved: currentSaved,
           });
+          vscode.commands.executeCommand('photon.refreshSidebar');
           vscode.window.showInformationMessage(
             `Imported ${importedItems.length} requests!`,
           );
@@ -996,6 +1110,8 @@ function getWebviewContent(context: vscode.ExtensionContext) {
                     el.onclick = () => loadFromItem(item);
                     container.appendChild(el);
                 });
+            } else if (message.command === 'loadRequest') {
+                loadFromItem(message.request);
             }
         });
     </script>
