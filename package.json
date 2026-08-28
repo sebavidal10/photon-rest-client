@@ -6,6 +6,10 @@
   "version": "0.2.0",
   "icon": "icon.png",
   "license": "MIT",
+  "homepage": "https://github.com/sebavidal10/photon-rest-client#readme",
+  "bugs": {
+    "url": "https://github.com/sebavidal10/photon-rest-client/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sebavidal10/photon-rest-client.git"
@@ -15,6 +19,14 @@
   },
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "rest",
+    "rest-client",
+    "api",
+    "http",
+    "postman",
+    "dark-mode"
   ],
   "activationEvents": [
     "onCommand:photon.open",

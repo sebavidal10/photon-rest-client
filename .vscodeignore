@@ -2,6 +2,8 @@
 deploy.sh
 .vscode/**
 .vscode-test/**
+.vscode-test.mjs
+.github/**
 out/**
 node_modules/**
 src/**

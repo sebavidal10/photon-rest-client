@@ -31,7 +31,7 @@ Search for `Photon REST Client` in the VS Code / Antigravity Extensions view (`C
 ### Manual Installation (.vsix)
 
 1. Go to the [Releases](https://github.com/sebavidal10/photon-rest-client/releases) page.
-2. Download `photon-rest-client-0.2.0.vsix`.
+2. Download the latest `photon-rest-client-*.vsix` file from the latest release assets.
 3. In VS Code, open the **Extensions** view (`Cmd+Shift+X` or `Ctrl+Shift+X`).
 4. Click `...` (Views and More Actions) in the top right corner.
 5. Select **Install from VSIX...** and choose the downloaded file.

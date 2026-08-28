@@ -5,7 +5,6 @@ node_modules
 
 # VS Code & Testing
 .vscode-test/
-.vscode-test.mjs
 *.vsix
 
 # Environment & Secrets
